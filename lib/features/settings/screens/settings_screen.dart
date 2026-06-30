@@ -53,7 +53,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     title: const Text('Dark mode'),
                     subtitle: const Text(
-                      'Use a soft premium palette at night.',
+                      'Use a soft, polished palette at night.',
                     ),
                     value: themeProvider.isDarkMode,
                     onChanged: themeProvider.toggleTheme,
@@ -121,7 +121,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 14),
             Text(
-              'A premium note workspace with glassmorphism and elegant motion.',
+              'A polished note workspace with glassmorphism and elegant motion.',
               style: const TextStyle(
                 color: AppColors.textSecondary,
                 fontSize: 12,

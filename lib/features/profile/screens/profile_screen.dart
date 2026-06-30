@@ -67,7 +67,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 6),
                         Text(
-                          'Creative lead • Notely Premium',
+                          'Creative lead • Notely Studio',
                           style: TextStyle(color: Colors.white70, fontSize: 14),
                         ),
                       ],

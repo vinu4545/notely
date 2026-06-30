@@ -32,9 +32,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: AppGradients.background,
-        ),
+        decoration: const BoxDecoration(gradient: AppGradients.background),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 30),
@@ -71,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     children: const [
                       _OnboardingStep(
                         imageAsset: 'assets/onboarding_1.png',
-                        title: 'A workspace that feels premium',
+                        title: 'A workspace that feels refined',
                         description:
                             'Modern gradients, glass panels, and thoughtful motion make every moment feel elevated.',
                       ),
@@ -106,7 +104,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       height: 10,
                       margin: const EdgeInsets.symmetric(horizontal: 6),
                       decoration: BoxDecoration(
-                        color: _pageIndex == index ? AppColors.primaryPink : AppColors.border,
+                        color: _pageIndex == index
+                            ? AppColors.primaryPink
+                            : AppColors.border,
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
@@ -168,10 +168,7 @@ class _OnboardingStep extends StatelessWidget {
         const SizedBox(height: 32),
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w800,
-          ),
+          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800),
         ),
         const SizedBox(height: 16),
         Text(

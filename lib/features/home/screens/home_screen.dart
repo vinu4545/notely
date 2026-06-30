@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             const SizedBox(height: 6),
                             Text(
-                              'Your premium notebook',
+                              'Your modern workspace',
                               style: const TextStyle(
                                 fontSize: 34,
                                 fontWeight: FontWeight.w800,
@@ -71,37 +71,99 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-                      Container(
-                        width: 52,
-                        height: 52,
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [
-                              AppColors.primaryPink,
-                              AppColors.primaryOrange,
+                      Row(
+                        children: [
+                          PopupMenuButton<String>(
+                            icon: const Icon(
+                              Icons.more_vert,
+                              color: AppColors.textPrimary,
+                            ),
+                            onSelected: (value) {
+                              switch (value) {
+                                case 'archive':
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.archive,
+                                  );
+                                  break;
+                                case 'trash':
+                                  Navigator.pushNamed(context, AppRoutes.trash);
+                                  break;
+                                case 'history':
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.history,
+                                  );
+                                  break;
+                              }
+                            },
+                            itemBuilder: (context) => const [
+                              PopupMenuItem(
+                                value: 'archive',
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.archive_outlined),
+                                    SizedBox(width: 8),
+                                    Text('Archived notes'),
+                                  ],
+                                ),
+                              ),
+                              PopupMenuItem(
+                                value: 'trash',
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.delete_outline),
+                                    SizedBox(width: 8),
+                                    Text('Deleted notes'),
+                                  ],
+                                ),
+                              ),
+                              PopupMenuItem(
+                                value: 'history',
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.history_outlined),
+                                    SizedBox(width: 8),
+                                    Text('Activity log'),
+                                  ],
+                                ),
+                              ),
                             ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
                           ),
-                          borderRadius: AppRadius.xl,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Color.fromRGBO(255, 77, 141, 0.24),
-                              blurRadius: 18,
-                              offset: Offset(0, 10),
+                          const SizedBox(width: 12),
+                          Container(
+                            width: 52,
+                            height: 52,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [
+                                  AppColors.primaryPink,
+                                  AppColors.primaryOrange,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: AppRadius.xl,
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color.fromRGBO(255, 77, 141, 0.24),
+                                  blurRadius: 18,
+                                  offset: Offset(0, 10),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'N',
-                            style: TextStyle(
-                              fontSize: 24,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
+                            child: const Center(
+                              child: Text(
+                                'N',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ],
                   ),
@@ -206,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             const SizedBox(height: 10),
                             const Text(
-                              'Create your first premium note to get started.',
+                              'Create your first note and keep your ideas flowing.',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: AppColors.textSecondary,
@@ -256,6 +318,23 @@ class _HomeScreenState extends State<HomeScreen> {
                               AppRoutes.editor,
                               arguments: note,
                             );
+                          },
+                          onActionSelected: (selectedNote, action) async {
+                            switch (action) {
+                              case 'archive':
+                                await noteProvider.archiveNote(selectedNote);
+                                break;
+                              case 'delete':
+                                await noteProvider.deleteNote(selectedNote);
+                                break;
+                              case 'history':
+                                Navigator.pushNamed(
+                                  context,
+                                  AppRoutes.history,
+                                  arguments: selectedNote,
+                                );
+                                break;
+                            }
                           },
                         );
                       },

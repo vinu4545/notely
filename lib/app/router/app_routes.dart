@@ -9,6 +9,7 @@ class AppRoutes {
   static const settings = '/settings';
   static const archive = '/archive';
   static const trash = '/trash';
+  static const history = '/history';
   static const profile = '/profile';
   static const notes = '/notes';
 }

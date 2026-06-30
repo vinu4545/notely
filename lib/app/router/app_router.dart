@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../features/archive/screens/archive_screen.dart';
 import '../../features/editor/screens/editor_screen.dart';
+import '../../features/history/screens/history_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
@@ -34,6 +35,11 @@ class AppRouter {
         return _fadeRoute(const ArchiveScreen(), settings);
       case AppRoutes.trash:
         return _fadeRoute(const TrashScreen(), settings);
+      case AppRoutes.history:
+        return _fadeRoute(
+          HistoryScreen(note: settings.arguments as dynamic),
+          settings,
+        );
       case AppRoutes.profile:
         return _fadeRoute(const ProfileScreen(), settings);
       case AppRoutes.notes:

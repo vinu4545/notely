@@ -9,8 +9,14 @@ import '../../notes/models/note_model.dart';
 class NoteCard extends StatefulWidget {
   final Note note;
   final VoidCallback onTap;
+  final Future<void> Function(Note note, String action)? onActionSelected;
 
-  const NoteCard({super.key, required this.note, required this.onTap});
+  const NoteCard({
+    super.key,
+    required this.note,
+    required this.onTap,
+    this.onActionSelected,
+  });
 
   @override
   State<NoteCard> createState() => _NoteCardState();
@@ -73,6 +79,52 @@ class _NoteCardState extends State<NoteCard> {
                           size: 18,
                           color: AppColors.primaryPink,
                         ),
+                      const SizedBox(width: 8),
+                      PopupMenuButton<String>(
+                        padding: EdgeInsets.zero,
+                        icon: const Icon(
+                          Icons.more_horiz,
+                          size: 20,
+                          color: AppColors.textSecondary,
+                        ),
+                        onSelected: (value) async {
+                          if (widget.onActionSelected != null) {
+                            await widget.onActionSelected!(widget.note, value);
+                          }
+                        },
+                        itemBuilder: (context) => const [
+                          PopupMenuItem(
+                            value: 'history',
+                            child: Row(
+                              children: [
+                                Icon(Icons.history_outlined),
+                                SizedBox(width: 8),
+                                Text('History'),
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'archive',
+                            child: Row(
+                              children: [
+                                Icon(Icons.archive_outlined),
+                                SizedBox(width: 8),
+                                Text('Archive'),
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'delete',
+                            child: Row(
+                              children: [
+                                Icon(Icons.delete_outline),
+                                SizedBox(width: 8),
+                                Text('Delete'),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),

@@ -152,7 +152,7 @@ class _EditorScreenState extends State<EditorScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       Text(
-                        'Write a premium note',
+                        'Capture your next idea',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w800,
@@ -256,23 +256,33 @@ class _EditorScreenState extends State<EditorScreen> {
                             IconButton.outlined(
                               onPressed: _togglePin,
                               icon: Icon(
-                                _isPinned ? Icons.push_pin : Icons.push_pin_outlined,
+                                _isPinned
+                                    ? Icons.push_pin
+                                    : Icons.push_pin_outlined,
                               ),
                               tooltip: _isPinned ? 'Unpin note' : 'Pin note',
                             ),
                             IconButton.outlined(
                               onPressed: _toggleFavorite,
                               icon: Icon(
-                                _isFavorite ? Icons.favorite : Icons.favorite_outline,
+                                _isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_outline,
                               ),
-                              tooltip: _isFavorite ? 'Remove from favorites' : 'Add to favorites',
+                              tooltip: _isFavorite
+                                  ? 'Remove from favorites'
+                                  : 'Add to favorites',
                             ),
                             IconButton.outlined(
                               onPressed: _toggleArchive,
                               icon: Icon(
-                                _isArchived ? Icons.unarchive : Icons.archive_outlined,
+                                _isArchived
+                                    ? Icons.unarchive
+                                    : Icons.archive_outlined,
                               ),
-                              tooltip: _isArchived ? 'Unarchive note' : 'Archive note',
+                              tooltip: _isArchived
+                                  ? 'Unarchive note'
+                                  : 'Archive note',
                             ),
                           ],
                         ),
@@ -308,10 +318,7 @@ class _EditorScreenState extends State<EditorScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _EditorBadge(
-                        label: 'Words',
-                        value: '${_getWordCount()}',
-                      ),
+                      _EditorBadge(label: 'Words', value: '${_getWordCount()}'),
                       _EditorBadge(
                         label: 'Characters',
                         value: '${_getCharacterCount()}',

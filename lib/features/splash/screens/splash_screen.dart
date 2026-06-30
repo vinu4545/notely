@@ -142,7 +142,7 @@ class _SplashScreenState extends State<SplashScreen>
                         SlideTransition(
                           position: _slideAnimation,
                           child: const Text(
-                            'A premium note workspace for modern teams.',
+                            'A polished note workspace for modern teams.',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white70,

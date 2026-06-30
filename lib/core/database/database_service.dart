@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 
+import '../../features/notes/models/note_activity.dart';
 import '../../features/notes/models/note_model.dart';
 import '../constants/app_constants.dart';
 import 'database_helper.dart';
@@ -18,7 +19,10 @@ class DatabaseService {
 
   Future<List<Note>> fetchNotes() async {
     final db = await database;
-    final rows = await db.query(AppConstants.noteTable, orderBy: 'updatedAt DESC');
+    final rows = await db.query(
+      AppConstants.noteTable,
+      orderBy: 'updatedAt DESC',
+    );
     return rows.map(Note.fromMap).toList();
   }
 
@@ -44,6 +48,22 @@ class DatabaseService {
       where: 'id = ?',
       whereArgs: [noteId],
     );
+  }
+
+  Future<List<NoteActivityEntry>> fetchHistory({int? noteId}) async {
+    final db = await database;
+    final rows = await db.query(
+      AppConstants.noteHistoryTable,
+      where: noteId == null ? null : 'noteId = ?',
+      whereArgs: noteId == null ? null : [noteId],
+      orderBy: 'createdAt DESC',
+    );
+    return rows.map(NoteActivityEntry.fromMap).toList();
+  }
+
+  Future<int> logNoteActivity(NoteActivityEntry entry) async {
+    final db = await database;
+    return await db.insert(AppConstants.noteHistoryTable, entry.toMap());
   }
 
   Future<void> ensureSampleNotes() async {
@@ -75,7 +95,7 @@ class DatabaseService {
       Note(
         title: 'Ideas for launch email',
         content:
-            'Write a short hero sentence, add soft illustrations, and keep the onboarding feeling premium.',
+            'Write a short hero sentence, add soft illustrations, and keep the onboarding feeling polished.',
         category: 'Ideas',
         isPinned: false,
         isFavorite: true,
