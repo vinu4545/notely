@@ -47,9 +47,22 @@ class AppRouter {
   static PageRouteBuilder _fadeRoute(Widget child, RouteSettings settings) {
     return PageRouteBuilder(
       settings: settings,
+      transitionDuration: const Duration(milliseconds: 420),
+      reverseTransitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (_, animation, secondaryAnimation) => child,
       transitionsBuilder: (_, animation, secondaryAnimation, child) {
-        return FadeTransition(opacity: animation, child: child);
+        final curvedAnimation = CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeOutCubic,
+        );
+
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0.04, 0),
+            end: Offset.zero,
+          ).animate(curvedAnimation),
+          child: FadeTransition(opacity: curvedAnimation, child: child),
+        );
       },
     );
   }

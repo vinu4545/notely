@@ -36,27 +36,30 @@ class StatisticsCard extends StatelessWidget {
           Text(
             label,
             style: const TextStyle(
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: FontWeight.w600,
               color: AppColors.textSecondary,
             ),
+            overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Text(
             value,
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 20,
               fontWeight: FontWeight.w800,
               color: AppColors.textPrimary,
             ),
+            overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
           Text(
             caption,
             style: const TextStyle(
-              fontSize: 13,
+              fontSize: 12,
               color: AppColors.textSecondary,
             ),
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

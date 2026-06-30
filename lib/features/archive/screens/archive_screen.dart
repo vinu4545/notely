@@ -17,38 +17,47 @@ class ArchiveScreen extends StatelessWidget {
         title: const Text('Archive'),
         backgroundColor: Colors.transparent,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-        child: provider.archivedNotes.isEmpty
-            ? EmptyState(
-                icon: Icons.archive_outlined,
-                title: 'Archive is empty',
-                description:
-                    'Long press a note from your workspace to save it for later.',
-                buttonLabel: 'Browse notes',
-                onTap: () => Navigator.pop(context),
-              )
-            : ListView.separated(
-                itemCount: provider.archivedNotes.length,
-                separatorBuilder: (_, index) => const SizedBox(height: 18),
-                itemBuilder: (context, index) {
-                  final note = provider.archivedNotes[index];
-                  return ListTile(
-                    tileColor: AppColors.surface,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    title: Text(note.title),
-                    subtitle: Text(note.category),
-                    trailing: TextButton(
-                      onPressed: () {
-                        provider.restoreNote(note);
-                      },
-                      child: const Text('Restore'),
-                    ),
-                  );
-                },
-              ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+          child: provider.archivedNotes.isEmpty
+              ? SizedBox(
+                  height: 500,
+                  child: EmptyState(
+                    icon: Icons.archive_outlined,
+                    imageAsset: 'assets/empty_archive.png',
+                    title: 'Archive is empty',
+                    description:
+                        'Long press a note from your workspace to save it for later.',
+                    buttonLabel: 'Browse notes',
+                    onTap: () => Navigator.pop(context),
+                  ),
+                )
+              : ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: provider.archivedNotes.length,
+                  separatorBuilder: (_, index) => const SizedBox(height: 18),
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) {
+                    final note = provider.archivedNotes[index];
+                    return ListTile(
+                      tileColor: AppColors.surface,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      title: Text(note.title),
+                      subtitle: Text(note.category),
+                      trailing: TextButton(
+                        onPressed: () {
+                          provider.restoreNote(note);
+                        },
+                        child: const Text('Restore'),
+                      ),
+                    );
+                  },
+                ),
+        ),
       ),
     );
   }

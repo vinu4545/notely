@@ -70,19 +70,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     },
                     children: const [
                       _OnboardingStep(
-                        icon: Icons.cloud_outlined,
+                        imageAsset: 'assets/onboarding_1.png',
                         title: 'A workspace that feels premium',
                         description:
                             'Modern gradients, glass panels, and thoughtful motion make every moment feel elevated.',
                       ),
                       _OnboardingStep(
-                        icon: Icons.edit_note_outlined,
+                        imageAsset: 'assets/onboarding_2.png',
                         title: 'Write, organize, and review',
                         description:
                             'Create notes, pin your focus items, archive ideas, and search instantly with intelligent filters.',
                       ),
                       _OnboardingStep(
-                        icon: Icons.auto_graph_outlined,
+                        imageAsset: 'assets/onboarding_3.png',
                         title: 'Built for speed and clarity',
                         description:
                             'Minimal distractions, smooth navigation, and responsive layouts across mobile, desktop and tablet.',
@@ -122,12 +122,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 }
 
 class _OnboardingStep extends StatelessWidget {
-  final IconData icon;
+  final String imageAsset;
   final String title;
   final String description;
 
   const _OnboardingStep({
-    required this.icon,
+    required this.imageAsset,
     required this.title,
     required this.description,
   });
@@ -137,8 +137,9 @@ class _OnboardingStep extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Container(
-          height: 180,
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 320),
+          height: 220,
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               colors: [AppColors.primaryPink, AppColors.primaryOrange],
@@ -154,7 +155,15 @@ class _OnboardingStep extends StatelessWidget {
               ),
             ],
           ),
-          child: Icon(icon, size: 80, color: Colors.white),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(32),
+            child: Image.asset(
+              imageAsset,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
+          ),
         ),
         const SizedBox(height: 32),
         Text(

@@ -17,6 +17,7 @@ class _SplashScreenState extends State<SplashScreen>
   late final AnimationController _controller;
   late final Animation<double> _fadeAnimation;
   late final Animation<double> _scaleAnimation;
+  late final Animation<Offset> _slideAnimation;
   late final Timer _navigationTimer;
 
   @override
@@ -34,6 +35,11 @@ class _SplashScreenState extends State<SplashScreen>
       begin: 0.8,
       end: 1.0,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.15),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
 
     _controller.forward();
     _navigationTimer = Timer(const Duration(milliseconds: 2000), () {
@@ -109,36 +115,40 @@ class _SplashScreenState extends State<SplashScreen>
                                 ),
                               ],
                             ),
-                            child: const Center(
-                              child: Text(
-                                'N',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 72,
-                                  fontWeight: FontWeight.w900,
-                                ),
+                            child: Center(
+                              child: Image.asset(
+                                'assets/splash_logo.png',
+                                width: 88,
+                                height: 88,
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ),
                         ),
                         const SizedBox(height: 28),
-                        const Text(
-                          'Notely',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 42,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 2,
+                        SlideTransition(
+                          position: _slideAnimation,
+                          child: const Text(
+                            'Notely',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 42,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 2,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 14),
-                        const Text(
-                          'A premium note workspace for modern teams.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 16,
-                            height: 1.6,
+                        SlideTransition(
+                          position: _slideAnimation,
+                          child: const Text(
+                            'A premium note workspace for modern teams.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                              height: 1.6,
+                            ),
                           ),
                         ),
                       ],

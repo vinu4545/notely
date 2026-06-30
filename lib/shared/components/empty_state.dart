@@ -6,6 +6,7 @@ import '../../app/theme/app_radius.dart';
 
 class EmptyState extends StatelessWidget {
   final IconData icon;
+  final String? imageAsset;
   final String title;
   final String description;
   final String buttonLabel;
@@ -14,6 +15,7 @@ class EmptyState extends StatelessWidget {
   const EmptyState({
     super.key,
     required this.icon,
+    this.imageAsset,
     required this.title,
     required this.description,
     required this.buttonLabel,
@@ -44,11 +46,21 @@ class EmptyState extends StatelessWidget {
                 ),
               ],
             ),
-            child: Icon(
-              icon,
-              color: Colors.white,
-              size: 44,
-            ),
+            child: imageAsset == null
+                ? Icon(
+                    icon,
+                    color: Colors.white,
+                    size: 44,
+                  )
+                : ClipRRect(
+                    borderRadius: AppRadius.xl,
+                    child: Image.asset(
+                      imageAsset!,
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
           ),
           const SizedBox(height: 24),
           Text(
