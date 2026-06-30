@@ -141,16 +141,6 @@ class _NoteCardState extends State<NoteCard> {
                               ],
                             ),
                           ),
-                          const PopupMenuItem(
-                            value: 'lastVisited',
-                            child: Row(
-                              children: [
-                                Icon(Icons.access_time_outlined),
-                                SizedBox(width: 8),
-                                Text('Last visited'),
-                              ],
-                            ),
-                          ),
                           PopupMenuItem(
                             value: 'pin',
                             child: Row(

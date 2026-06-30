@@ -6,18 +6,25 @@ import '../../notes/providers/note_provider.dart';
 import '../../notes/widgets/note_card.dart';
 
 class NoteListScreen extends StatelessWidget {
-  const NoteListScreen({super.key});
+  final String? filterType;
+
+  const NoteListScreen({super.key, this.filterType});
 
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<NoteProvider>();
-    final notes = provider.activeNotes;
+    final notes = filterType == null
+        ? provider.activeNotes
+        : provider.notesForSection(filterType!);
+    final title = switch (filterType) {
+      'favorites' => 'Favorites',
+      'pinned' => 'Pinned notes',
+      'lastVisited' => 'Last visited',
+      _ => 'All notes',
+    };
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('All notes'),
-        backgroundColor: Colors.transparent,
-      ),
+      appBar: AppBar(title: Text(title), backgroundColor: Colors.transparent),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
@@ -58,7 +65,11 @@ class NoteListScreen extends StatelessWidget {
                     return NoteCard(
                       note: note,
                       onTap: () {
-                        Navigator.pushNamed(context, '/editor', arguments: note);
+                        Navigator.pushNamed(
+                          context,
+                          '/editor',
+                          arguments: note,
+                        );
                       },
                     );
                   },

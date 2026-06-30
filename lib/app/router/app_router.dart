@@ -43,7 +43,10 @@ class AppRouter {
       case AppRoutes.profile:
         return _fadeRoute(const ProfileScreen(), settings);
       case AppRoutes.notes:
-        return _fadeRoute(const NoteListScreen(), settings);
+        return _fadeRoute(
+          NoteListScreen(filterType: settings.arguments as String?),
+          settings,
+        );
       case AppRoutes.splash:
       default:
         return _fadeRoute(const SplashScreen(), settings);

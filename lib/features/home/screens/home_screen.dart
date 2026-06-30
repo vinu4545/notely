@@ -95,6 +95,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                     AppRoutes.history,
                                   );
                                   break;
+                                case 'favorites':
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.notes,
+                                    arguments: 'favorites',
+                                  );
+                                  break;
+                                case 'lastVisited':
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.notes,
+                                    arguments: 'lastVisited',
+                                  );
+                                  break;
+                                case 'pinned':
+                                  Navigator.pushNamed(
+                                    context,
+                                    AppRoutes.notes,
+                                    arguments: 'pinned',
+                                  );
+                                  break;
                               }
                             },
                             itemBuilder: (context) => const [
@@ -125,6 +146,36 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Icon(Icons.history_outlined),
                                     SizedBox(width: 8),
                                     Text('Activity log'),
+                                  ],
+                                ),
+                              ),
+                              PopupMenuItem(
+                                value: 'favorites',
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.favorite_outline),
+                                    SizedBox(width: 8),
+                                    Text('Favorites'),
+                                  ],
+                                ),
+                              ),
+                              PopupMenuItem(
+                                value: 'lastVisited',
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.access_time_outlined),
+                                    SizedBox(width: 8),
+                                    Text('Last visited'),
+                                  ],
+                                ),
+                              ),
+                              PopupMenuItem(
+                                value: 'pinned',
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.push_pin_outlined),
+                                    SizedBox(width: 8),
+                                    Text('Pinned'),
                                   ],
                                 ),
                               ),
@@ -332,16 +383,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 break;
                               case 'pin':
                                 await noteProvider.togglePin(selectedNote);
-                                break;
-                              case 'lastVisited':
-                                final navigator = Navigator.of(context);
-                                await noteProvider.markNoteAsVisited(
-                                  selectedNote,
-                                );
-                                navigator.pushNamed(
-                                  AppRoutes.editor,
-                                  arguments: selectedNote,
-                                );
                                 break;
                               case 'history':
                                 Navigator.pushNamed(

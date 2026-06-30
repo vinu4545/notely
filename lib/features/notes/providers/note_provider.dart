@@ -290,6 +290,38 @@ class NoteProvider extends ChangeNotifier {
     return note?.title ?? 'Untitled note';
   }
 
+  List<Note> get lastVisitedNotes {
+    final sortedNotes = activeNotes.toList()
+      ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+
+    final now = DateTime.now();
+    final visitedToday = sortedNotes.where((note) {
+      final updated = note.updatedAt;
+      return updated.year == now.year &&
+          updated.month == now.month &&
+          updated.day == now.day;
+    }).toList();
+
+    if (visitedToday.isNotEmpty) {
+      return visitedToday;
+    }
+
+    return sortedNotes.take(10).toList();
+  }
+
+  List<Note> notesForSection(String section) {
+    switch (section) {
+      case 'favorites':
+        return favoriteNotes;
+      case 'pinned':
+        return pinnedNotes;
+      case 'lastVisited':
+        return lastVisitedNotes;
+      default:
+        return activeNotes;
+    }
+  }
+
   List<Note> search(String query) {
     final normalized = query.toLowerCase();
     return activeNotes.where((note) {
